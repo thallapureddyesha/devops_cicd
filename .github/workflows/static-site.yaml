@@ -1,1 +1,25 @@
+name: Add greeting message
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add greeting
+        run: echo "Hello from GitHub Actions!" >> sample.txt
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add sample.txt
+          git commit -m "Update sample.txt" || echo "No changes to commit"
+          git push
